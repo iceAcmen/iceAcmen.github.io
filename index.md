@@ -7,3 +7,10 @@ git submodule init;
 git submodule update;
 git submodule foreach git checkout develop;
 ```
+```markdown
+public class Ice {
+  public static void main(String[] args) {
+    System.out.println("Hello World !!!");
+  }
+}
+```
