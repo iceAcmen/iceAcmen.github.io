@@ -56,7 +56,9 @@
              * 下载文件
              */
             downloadTextFile(mobileCode) {
-              var file = new File([JSON.stringify({ice:"123"})], "手机号.json", { type: "text/plain;charset=utf-8" });
+              mobileCode = '123123';
+              
+              var file = new File([mobileCode], "手机号.json", { type: "text/plain;charset=utf-8" });
               saveAs(file);
             }
           }
