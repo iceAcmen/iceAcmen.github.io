@@ -40,7 +40,7 @@
                     slot="dateCell"
                     slot-scope="{date, data}">
                     <p :class="data.isSelected ? 'is-selected' : ''">
-                      {{ data.day.split('-')[2]}} {{ data.isSelected ? '✔️' : ''}}
+                      {{ data.day}} {{ data.isSelected ? '✔️' : ''}}
                     </p>
                   </template>
                 </el-calendar>
