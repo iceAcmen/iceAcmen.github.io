@@ -43,7 +43,7 @@
                     slot="dateCell"
                     slot-scope="{date, data}">
                     <p :class="data.isSelected ? 'is-selected' : ''">
-                      {{ data.day.split('-')[2]}} {{ complete.includes(data.day) ? '✔️' : ''}}
+                      {{ data.day.split('-')[2]}} {{ this.complete.includes(data.day) ? '✔️' : ''}}
                     </p>
                   </template>
                 </el-calendar>

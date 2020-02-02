@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
     <script src="./js/FileSaver.js"></script>
     <script src="./js/utils/UrlUtil.js"></script>
-    <script src="./js/utils/GithubUtil.js"></script>
     <link rel="stylesheet" href="./css/common.css">
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -43,7 +42,7 @@
                     slot="dateCell"
                     slot-scope="{date, data}">
                     <p :class="data.isSelected ? 'is-selected' : ''">
-                      {{ data.day.split('-')[2]}} {{ complete.includes(data.day) ? '✔️' : ''}}
+                      {{ data.day.split('-')[2]}} {{ data.isSelected ? '✔️' : ''}}
                     </p>
                   </template>
                 </el-calendar>
@@ -60,12 +59,58 @@
             return {
               clientId: 'aa095e4edcac79b02a6e',
               clientSecret: 'b7107a6b6c65a1ae13ab2494754b4f17f2343c05',
-              github_token: 'b018768a02441354f0340f068cea8fef984e5def',
-              complete: ['2020-02-01','2020-02-02']
+              github_token: 'b018768a02441354f0340f068cea8fef984e5def'
             }
           },
           created () {
-            GithubUtil.getUserInfo(this.github_token);
+            let code = Urlutil.getUrlKey("code", "https://iceacmen.github.io/?code=1c9cf47fb0eeaf688fe2");
+            if (_.isEmpty(code)) {
+              //跳转到github授权页面
+              // https://github.com/login/oauth/authorize?client_id=aa095e4edcac79b02a6e
+              window.open("https://github.com/login/oauth/authorize?client_id=" + this.clientId + 'redirect_uri=file:///F:/ICE/VScode/iceAcmen.github.io/index.html');  
+            }
+            console.log("code : " + code)
+            fetch('https://api.github.com/user', {
+              method: 'GET',
+              headers:{
+                'Accept': 'application/json',
+                'Authorization': 'token ' + this.github_token
+              }
+            }).then(res=>{
+              debugger
+              if (!res.ok) {
+                res.text().then(json=>{
+                  console.log("获取用户信息失败", json)  
+                })
+                return;
+              }
+              res.json().then(json=>{
+                console.log("获取token成功", json)
+              })
+              
+            }).catch(err=>{
+              debugger
+              console.log("获取token失败", err)
+            });
+            // fetch('https://github.com/login/oauth/access_token?client_id=aa095e4edcac79b02a6e&client_secret=b7107a6b6c65a1ae13ab2494754b4f17f2343c05&code=559d4bd5fbc342fd7c08', {
+            //   method: 'GET',
+            //   mode: 'no-cors',
+            //   headers:{
+            //     'Accept': 'application/json'
+            //   }
+            // }).then(res=>{
+            //   debugger
+            //   if (!res.ok) {
+            //     res.text().then(json=>{
+            //       console.log("获取token失败", json)  
+            //     })
+            //     return;
+            //   }
+            //   console.log("获取token成功", res)
+            // }).catch(err=>{
+            //   debugger
+            //   console.log("获取token失败", err)
+            // })
           },
           methods: {
             aaa(){

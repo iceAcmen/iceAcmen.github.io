@@ -43,7 +43,7 @@
                     slot="dateCell"
                     slot-scope="{date, data}">
                     <p :class="data.isSelected ? 'is-selected' : ''">
-                      {{ data.day.split('-')[2]}} {{ complete.includes(data.day) ? '✔️' : ''}}
+                      {{ data.day.split('-')[2]}} {{ data.isSelected ? '✔️' : ''}}
                     </p>
                   </template>
                 </el-calendar>
@@ -60,12 +60,11 @@
             return {
               clientId: 'aa095e4edcac79b02a6e',
               clientSecret: 'b7107a6b6c65a1ae13ab2494754b4f17f2343c05',
-              github_token: 'b018768a02441354f0340f068cea8fef984e5def',
-              complete: ['2020-02-01','2020-02-02']
+              github_token: 'b018768a02441354f0340f068cea8fef984e5def'
             }
           },
           created () {
-            GithubUtil.getUserInfo(this.github_token);
+            GithubUtil.getUserInfo();
           },
           methods: {
             aaa(){
