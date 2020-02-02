@@ -68,7 +68,8 @@
               window.open("https://github.com/login/oauth/authorize?client_id=" + this.clientId);  
             }
             console.log("code : " + code)
-            fetch('https://github.com/login/oauth/access_token', {
+            fetch({
+              url: 'https://github.com/login/oauth/access_token',
               method: 'GET',
               formData: {
                 client_id: this.clientId,

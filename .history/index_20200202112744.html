@@ -57,27 +57,16 @@
           
           data () {
             return {
-              clientId: 'aa095e4edcac79b02a6e',
-              clientSecret: 'b7107a6b6c65a1ae13ab2494754b4f17f2343c05',
+              
             }
           },
           created () {
             let code = Urlutil.getUrlKey("code", "https://iceacmen.github.io/?code=503b84e149528c24091e");
             if (_.isEmpty(code)) {
-              //跳转到github授权页面
-              window.open("https://github.com/login/oauth/authorize?client_id=" + this.clientId);  
+              window.open("https://github.com/login/oauth/authorize?client_id=aa095e4edcac79b02a6e");  
             }
             console.log("code : " + code)
-            fetch('https://github.com/login/oauth/access_token', {
-              method: 'GET',
-              formData: {
-                client_id: this.clientId,
-                client_secret: this.clientSecret,
-                code: code
-              }
-            }).then(res=>{
-              console.log("token",res)
-            })
+            
           },
           methods: {
             aaa(){

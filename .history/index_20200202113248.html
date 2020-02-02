@@ -65,18 +65,17 @@
             let code = Urlutil.getUrlKey("code", "https://iceacmen.github.io/?code=503b84e149528c24091e");
             if (_.isEmpty(code)) {
               //跳转到github授权页面
-              window.open("https://github.com/login/oauth/authorize?client_id=" + this.clientId);  
+              window.open("https://github.com/login/oauth/authorize?client_id=aa095e4edcac79b02a6e");  
             }
             console.log("code : " + code)
-            fetch('https://github.com/login/oauth/access_token', {
+            fetch({
+              url: 'https://github.com/login/oauth/access_token',
               method: 'GET',
               formData: {
-                client_id: this.clientId,
-                client_secret: this.clientSecret,
+                client_id: '',
+                client_secret: '',
                 code: code
               }
-            }).then(res=>{
-              console.log("token",res)
             })
           },
           methods: {
