@@ -8,6 +8,6 @@ body {
 .is-selected {
     color: #1989FA;
 }
-.el-header, .el-main{
+.el-header{
     padding: 0px !important;
 }
