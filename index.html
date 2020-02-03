@@ -73,9 +73,9 @@
           },
           methods: {
             isComplete(data){
-              for (let i = this.complete.length - 1; i >= 0; i++) {
+              for (let i = this.complete.length - 1; i >= 0; i--) {
                 const item = this.complete[i];
-                if (moment(data.day).isAfter(item[0]) && moment(data.day).isBefore(item[1])) {
+                if (moment(data.day).isSameOrAfter(item[0]) && moment(data.day).isSameOrBefore(item[1])) {
                   return true;
                 }
               }
