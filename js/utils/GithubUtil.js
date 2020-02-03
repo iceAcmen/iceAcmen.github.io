@@ -37,7 +37,7 @@ var GithubUtil = (function() {
             let getTokenUrl = `https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`;
             fetch(getTokenUrl, {
               method: 'GET',
-              mode: 'no-cors',
+              // mode: 'no-cors',
               headers:{
                 'Accept': 'application/json'
               }
