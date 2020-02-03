@@ -1,27 +1,25 @@
 var GithubUtil = (function() {
-    function getUserInfo(token) {
-        fetch('https://api.github.com/user', {
-            method: 'GET',
-            headers:{
-            'Accept': 'application/json',
-            'Authorization': 'token ' + token
-            }
-        }).then(res=>{
-            debugger
-            if (!res.ok) {
-            res.text().then(json=>{
-                console.log("获取用户信息失败", json)  
-            })
-            return;
-            }
-            res.json().then(json=>{
-            console.log("获取token成功", json)
-            })
-            
-        }).catch(err=>{
-            debugger
-            console.log("获取token失败", err)
-        });
+    async function getUserInfo(token) {
+      // https://api.github.com/user
+      let res = await fetch('https://api.github.com/repos/iceAcmen/iceAcmen.github.io/udata/contents/ice.iceio?ref=master', {
+          method: 'GET',
+          headers:{
+          'Accept': 'application/json',
+          'Authorization': 'token ' + token
+          }
+      }).catch(err=>{
+          console.log("获取用户信息失败", err)
+      });
+      if (!res.ok) {
+        res.text().then(json=>{
+            console.log("获取用户信息失败", json)  
+        })
+        return;
+      }
+      let resJson = await res.json();
+      let content = JSON.parse(atob(resJson.content));
+      console.log("获取用户信息成功", content)
+      return content;
     }
 
     function authorization(vm) {
