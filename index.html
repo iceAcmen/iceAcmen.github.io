@@ -7,6 +7,7 @@
     <script src="./js/vue.js"></script>
     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js"></script>
     <script src="./js/FileSaver.js"></script>
     <script src="./js/utils/UrlUtil.js"></script>
     <script src="./js/utils/GithubUtil.js"></script>
@@ -38,13 +39,13 @@
             </el-header>
             <el-main>
                 <h1>日程管理</h1>
-                <el-calendar>
+                <el-calendar v-if="complete">
                   <!-- 这里使用的是 2.5 slot 语法，对于新项目请使用 2.6 slot 语法-->
                   <template
                     slot="dateCell"
                     slot-scope="{date, data}">
                     <p :class="data.isSelected ? 'is-selected' : ''">
-                      {{ data.day.split('-')[2]}} {{ complete.includes(data.day) ? '✔️' : ''}}
+                      {{ data.day.split('-')[2]}} {{ isComplete(data) ? '✔️' : ''}}
                     </p>
                   </template>
                 </el-calendar>
@@ -62,15 +63,23 @@
               clientId: 'aa095e4edcac79b02a6e',
               clientSecret: 'b7107a6b6c65a1ae13ab2494754b4f17f2343c05',
               github_token: 'Mzk4MDYzY2YxYjIxYTRiYmFkMzY3OTRkNGExNzAwMDc2ODNmYTdlNg==',
+              complete: null
             }
           },
-          created () {
+          async created () {
             // GithubUtil.authorization(this);
-            GithubUtil.getUserInfo(atob(this.github_token));
+            let content = await GithubUtil.getUserInfo(atob(this.github_token));
+            this.complete = content.complete;
           },
           methods: {
-            aaa(){
-              alert("bbb");
+            isComplete(data){
+              for (let i = this.complete.length - 1; i >= 0; i++) {
+                const item = this.complete[i];
+                if (moment(data.day).isAfter(item[0]) && moment(data.day).isBefore(item[1])) {
+                  return true;
+                }
+              }
+              return false;
             },
             /**
              * 下载文件

@@ -1,7 +1,7 @@
 var GithubUtil = (function() {
     async function getUserInfo(token) {
       // https://api.github.com/user
-      let res = await fetch('https://api.github.com/repos/iceAcmen/iceAcmen.github.io/udata/contents/ice.iceio?ref=master', {
+      let res = await fetch('https://api.github.com/repos/iceAcmen/iceAcmen.github.io/contents/udata/ice.iceio?ref=master', {
           method: 'GET',
           headers:{
           'Accept': 'application/json',
